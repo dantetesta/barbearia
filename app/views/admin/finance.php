@@ -15,12 +15,58 @@ ob_start();
     <div class="container mx-auto max-w-7xl">
         <!-- Header -->
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">Relatórios Financeiros</h1>
-            <p class="text-gray-600">Análise completa de faturamento e agendamentos</p>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Relatórios Financeiros</h1>
+                    <p class="text-gray-600">Análise completa de faturamento e agendamentos</p>
+                </div>
+                <a href="<?= url('/admin') ?>" class="text-blue-600 hover:text-blue-700 font-semibold">
+                    ← Voltar ao Painel
+                </a>
+            </div>
+            <?php 
+                $startDate = $_GET['start_date'] ?? date('Y-m-01');
+                $endDate = $_GET['end_date'] ?? date('Y-m-d');
+                $startFormatted = date('d/m/Y', strtotime($startDate));
+                $endFormatted = date('d/m/Y', strtotime($endDate));
+            ?>
+            <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg px-4 py-3">
+                <p class="text-sm text-blue-800">
+                    <strong>Período:</strong> <?= $startFormatted ?> até <?= $endFormatted ?>
+                </p>
+            </div>
         </div>
         
-        <!-- Filtros -->
+        <!-- Filtros Rápidos -->
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Filtros Rápidos</h3>
+            <div class="flex flex-wrap gap-3">
+                <a href="<?= url('/admin/finance') ?>?start_date=<?= date('Y-m-d') ?>&end_date=<?= date('Y-m-d') ?>" 
+                   class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 font-semibold transition-colors">
+                    📅 Hoje
+                </a>
+                <a href="<?= url('/admin/finance') ?>?start_date=<?= date('Y-m-d', strtotime('monday this week')) ?>&end_date=<?= date('Y-m-d', strtotime('sunday this week')) ?>" 
+                   class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 font-semibold transition-colors">
+                    📆 Esta Semana
+                </a>
+                <a href="<?= url('/admin/finance') ?>?start_date=<?= date('Y-m-01') ?>&end_date=<?= date('Y-m-t') ?>" 
+                   class="px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 font-semibold transition-colors">
+                    📊 Este Mês
+                </a>
+                <a href="<?= url('/admin/finance') ?>?start_date=<?= date('Y-01-01') ?>&end_date=<?= date('Y-12-31') ?>" 
+                   class="px-4 py-2 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 font-semibold transition-colors">
+                    📈 Este Ano
+                </a>
+                <a href="<?= url('/admin/finance') ?>?start_date=<?= date('Y-m-d', strtotime('-30 days')) ?>&end_date=<?= date('Y-m-d') ?>" 
+                   class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-semibold transition-colors">
+                    📉 Últimos 30 dias
+                </a>
+            </div>
+        </div>
+        
+        <!-- Filtros Personalizados -->
         <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Período Personalizado</h3>
             <form method="GET" action="<?= url('/admin/finance') ?>" class="flex flex-wrap gap-4 items-end">
                 <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Data Início</label>
@@ -34,7 +80,7 @@ ob_start();
                 </div>
                 <div class="flex gap-2">
                     <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700">
-                        Filtrar
+                        Buscar
                     </button>
                     <a href="<?= url('/admin/finance') ?>?start_date=<?= e($_GET['start_date'] ?? date('Y-m-01')) ?>&end_date=<?= e($_GET['end_date'] ?? date('Y-m-d')) ?>&export=csv" 
                        class="px-6 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700">
