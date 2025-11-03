@@ -27,12 +27,12 @@ if (APP_ENV === 'production') {
 }
 
 // Supabase Configuration
-define('SUPABASE_URL', getenv('SUPABASE_URL') ?: 'https://rafanckccuxtarswlljp.supabase.co');
-define('SUPABASE_KEY', getenv('SUPABASE_KEY') ?: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhZmFuY2tjY3V4dGFyc3dsbGpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxOTExMTEsImV4cCI6MjA3Nzc2NzExMX0.PrO6BA8HK4ZJMQwCNamTSHV5ogaU1j3vte3TEn7H--o');
+define('SUPABASE_URL', getenv('SUPABASE_URL') ?: '');
+define('SUPABASE_KEY', getenv('SUPABASE_KEY') ?: '');
 
 // Google reCAPTCHA v3 Configuration
-define('RECAPTCHA_SITE_KEY', getenv('RECAPTCHA_SITE_KEY') ?: '6LdSBAEsAAAAAElzdrCC8DipJTkAXMSikPOaHUHm');
-define('RECAPTCHA_SECRET', getenv('RECAPTCHA_SECRET') ?: '6LdSBAEsAAAAABZynADpEzHYpbJkBwL_Lc-gi6_O');
+define('RECAPTCHA_SITE_KEY', getenv('RECAPTCHA_SITE_KEY') ?: '');
+define('RECAPTCHA_SECRET', getenv('RECAPTCHA_SECRET') ?: '');
 define('RECAPTCHA_MIN_SCORE', 0.5); // Score mínimo aceitável
 
 // Caminhos da aplicação
