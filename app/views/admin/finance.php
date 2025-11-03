@@ -91,22 +91,29 @@ ob_start();
         </div>
         
         <!-- Cards de Totais -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
-                <div class="text-sm text-gray-600 mb-1">Total de Agendamentos</div>
+                <div class="text-sm text-gray-600 mb-1">Agendamentos Válidos</div>
                 <div class="text-3xl font-bold text-gray-900"><?= $report['total_appointments'] ?></div>
+                <div class="text-xs text-gray-500 mt-1">(Excluindo cancelados)</div>
             </div>
             <div class="bg-blue-50 rounded-lg shadow p-6">
                 <div class="text-sm text-blue-700 mb-1">Faturamento Total</div>
                 <div class="text-3xl font-bold text-blue-900"><?= formatMoney($report['total_revenue']) ?></div>
+                <div class="text-xs text-gray-500 mt-1">(Apenas válidos)</div>
             </div>
             <div class="bg-green-50 rounded-lg shadow p-6">
-                <div class="text-sm text-green-700 mb-1">Recebido</div>
+                <div class="text-sm text-green-700 mb-1">✅ Recebido</div>
                 <div class="text-3xl font-bold text-green-900"><?= formatMoney($report['total_paid']) ?></div>
             </div>
             <div class="bg-orange-50 rounded-lg shadow p-6">
-                <div class="text-sm text-orange-700 mb-1">A Receber</div>
+                <div class="text-sm text-orange-700 mb-1">⏳ A Receber</div>
                 <div class="text-3xl font-bold text-orange-900"><?= formatMoney($report['total_pending']) ?></div>
+            </div>
+            <div class="bg-red-50 rounded-lg shadow p-6">
+                <div class="text-sm text-red-700 mb-1">❌ Cancelados</div>
+                <div class="text-3xl font-bold text-red-900"><?= $report['total_canceled'] ?></div>
+                <div class="text-xs text-gray-500 mt-1">(Não faturados)</div>
             </div>
         </div>
         

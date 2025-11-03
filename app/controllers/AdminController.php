@@ -133,7 +133,8 @@ class AdminController {
      */
     private function generateFinancialReport(array $appointments): array {
         $report = [
-            'total_appointments' => count($appointments),
+            'total_appointments' => 0, // Apenas agendamentos válidos (não cancelados)
+            'total_canceled' => 0, // Separar cancelados
             'total_revenue' => 0,
             'total_paid' => 0,
             'total_pending' => 0,
@@ -152,10 +153,21 @@ class AdminController {
         
         foreach ($appointments as $apt) {
             $price = (float)($apt['service_price'] ?? 0);
-            $report['total_revenue'] += $price;
+            $isCanceled = $apt['status'] === Appointment::STATUS_CANCELADO;
             
-            // Por status
+            // Contar status (incluindo cancelados para estatística)
             $report['by_status'][$apt['status']]['count']++;
+            
+            // CANCELADOS: Apenas contabilizar quantidade, NÃO contabilizar receita
+            if ($isCanceled) {
+                $report['total_canceled']++;
+                // NÃO adiciona ao revenue
+                continue; // Pula para o próximo
+            }
+            
+            // Agendamentos VÁLIDOS (não cancelados)
+            $report['total_appointments']++;
+            $report['total_revenue'] += $price;
             $report['by_status'][$apt['status']]['revenue'] += $price;
             
             // Por pagamento
